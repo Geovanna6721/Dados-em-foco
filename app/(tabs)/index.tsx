@@ -1,98 +1,137 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+export default function Index() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const router = useRouter();
 
-export default function HomeScreen() {
+  const handleLogin = async () => {
+    if (!email.trim() || !senha.trim()) {
+      Alert.alert('Erro', 'Preencha todos os campos!');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://pulsedata-ran7.onrender.com/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: senha }),
+      });
+      console.log('Enviando login:', { email, password: senha });
+
+      if (!response.ok) {
+        Alert.alert('Erro', 'Credenciais inválidas!');
+        return;
+      }
+
+      const data = await response.json();
+      // Aqui você pode salvar o token se quiser: data.token
+      router.replace('/home');
+    } catch (error) {
+      Alert.alert('Erro', 'Erro ao conectar com o servidor.');
+    }
+  };
+
+  const handleForgotPassword = () => {
+    Alert.alert('Recuperar senha', 'Funcionalidade ainda não implementada.');
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <View style={styles.container}>
+      {/* Logo */}
+      <Image
+        source={require('../../assets/logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      {/* Input E-mail */}
+      <TextInput
+        style={styles.input}
+        placeholder="E-mail"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        textContentType="emailAddress"
+        value={email}
+        onChangeText={setEmail}
+      />
+
+      {/* Input Senha */}
+      <TextInput
+        style={styles.input}
+        placeholder="Senha"
+        secureTextEntry
+        autoCorrect={false}
+        textContentType="password"
+        value={senha}
+        onChangeText={setSenha}
+      />
+
+      {/* Botão Entrar */}
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Entrar</Text>
+      </TouchableOpacity>
+
+      {/* Esqueceu senha */}
+      <TouchableOpacity onPress={handleForgotPassword}>
+        <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    paddingHorizontal: 30,
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  logo: {
+    width: 120,
+    height: 120,
+    marginBottom: 40,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  input: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#f4f4f4',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    fontSize: 16,
+    marginBottom: 12,
+    borderColor: '#ddd',
+    borderWidth: 1,
+  },
+  button: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#3b82f6',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 12,
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  forgotPasswordText: {
+    color: '#3b82f6',
+    marginTop: 16,
+    fontSize: 16,
   },
 });
