@@ -22,7 +22,7 @@ export default function Index() {
     }
 
     try {
-      const response = await fetch('https://pulsedata-ran7.onrender.com/auth/login', {
+      const response = await fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password: senha }),

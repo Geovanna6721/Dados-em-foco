@@ -31,10 +31,9 @@ export default function Home(): JSX.Element {
   const [formularios, setFormularios] = useState<Formulario[]>([]);
   const router = useRouter();
 
-  // Coloque aqui a URL do seu backend
-  const API_BASE_URL = 'https://pulsedata-ran7.onrender.com/';
+  // URL do backend (ajuste para seu servidor real)
+  const API_BASE_URL = 'http://localhost:3000';
 
-  // Busca formulários no backend ao iniciar o componente
   useEffect(() => {
     const carregarFormularios = async () => {
       try {
@@ -100,8 +99,7 @@ export default function Home(): JSX.Element {
           pathname: '/grafico',
           params: {
             titulo: item.titulo,
-            linkPerguntas: item.linkPerguntas,
-            linkRespostas: item.linkRespostas,
+            formId: item.linkRespostas.trim(), // Passa só o formId limpo
           },
         })
       }
