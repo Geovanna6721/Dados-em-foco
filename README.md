@@ -1,50 +1,64 @@
-# Welcome to your Expo app 👋
+# 📊 Dados em Foco
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Dados em Foco** é uma plataforma mobile que permite a **coleta de respostas de questionários** e a **visualização automática de dados em gráficos interativos**.
 
-## Get started
+A proposta é facilitar a análise de dados em áreas como saúde, educação, mobilidade urbana, inclusão social, entre outros — oferecendo insights rápidos e sugestões visuais para tomada de decisão.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 🧠 Sobre o Projeto
 
-2. Start the app
+O app permite que o usuário adicione links de formulários criados com o [Tally.so](https://tally.so), e automaticamente coleta as respostas para exibição em formato gráfico. 
 
-   ```bash
-   npx expo start
-   ```
+Com uma interface simples e intuitiva, é possível visualizar a quantidade de respostas por alternativa, com base em qualquer pergunta do formulário.
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## ⚙️ Tecnologias Utilizadas
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **React Native (Expo)** – Interface mobile
+- **Node.js + Express** – Backend da aplicação
+- **MongoDB** – Armazenamento dos formulários
+- **Tally API** – Integração com formulários externos
+- **react-native-chart-kit** – Geração de gráficos de barras
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 🎯 Funcionalidades
 
-```bash
-npm run reset-project
-```
+- Cadastro de formulários com links do Tally
+- Integração automática com a API de respostas
+- Exibição de gráficos interativos por pergunta
+- Atualização em tempo real ao enviar novos dados
+- Design responsivo para experiência em mobile
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 🌐 API de Integração
 
-To learn more about developing your project with Expo, look at the following resources:
+Utilizamos a [Tally API](https://tally.so/help/developers) para:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Buscar perguntas e respostas
+- Filtrar respostas por pergunta
+- Gerar visualizações dinâmicas a partir dos dados
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 💡 Objetivo
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Facilitar a análise de dados de pesquisas de forma rápida, prática e visual, mesmo para quem não possui conhecimentos técnicos em análise estatística ou ferramentas de BI.
+
+---
+
+## 📚 Exemplo de uso
+
+1. Crie um formulário no Tally (sobre qualquer tema)
+2. Cadastre o link no app “Dados em Foco”
+3. Visualize os resultados em gráficos de barras
+4. Obtenha insights imediatos para tomada de decisão
+
+---
+
+## 🛡️ Licença
+
+Este projeto está licenciado sob a licença MIT.
