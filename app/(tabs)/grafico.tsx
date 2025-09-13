@@ -16,7 +16,7 @@ export default function Grafico() {
   const router = useRouter();
 
   const formId = rawFormId?.trim();
-  const TOKEN = 'tly-QaNPwnhqq20qtRPfCJuldw2zqWwkNKG7';
+  const TOKEN = '';
 
   const [questions, setQuestions] = useState<any[]>([]);
   const [selectedQuestion, setSelectedQuestion] = useState<any | null>(null);
